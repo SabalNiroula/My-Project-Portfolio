@@ -58,24 +58,27 @@ st.sidebar.title('Bagging Classifier Settings')
 problem = st.sidebar.selectbox(
     'Problem', ('Classification', 'Regression'))
 
-if problem == 'Classification':
-    statement = 'cla'
-    X, y = make_classification(n_samples=500, n_features=2, n_informative=2, n_redundant=0,
-                               n_classes=2, random_state=42, class_sep=1.25)
-    m, n = X.shape
-    # Choose base model
-    base_model = st.sidebar.selectbox(
+# Choose base model
+base_model = st.sidebar.selectbox(
         'Base Model', ('SVM', 'Decision Tree', 'KNN'))
-    n_estimators = st.sidebar.number_input(
+n_estimators = st.sidebar.number_input(
         'Number of Estimators', value=100, step=10, min_value=1)
     # Set max sample
-    max_sample = st.sidebar.slider('Max Sample', 0, m)
+max_sample = st.sidebar.slider('Max Sample', 0, 500)
     # Set bootstrap sample
-    bootstrap_sample = st.sidebar.radio(
+bootstrap_sample = st.sidebar.radio(
         'Bootstrap Sample?', [True, False], index=0)
     # Set max feature
-    max_feature = st.sidebar.slider('Max Feature', 0, n)
+max_feature = st.sidebar.slider('Max Feature', 1, 5)
     # Set bootstrap feature
+bootstrap_feature = st.sidebar.radio(
+        'Bootstrap Feature?', [True, False], index=0)
+
+if problem == 'Classification':
+    statement = 'cla'
+    X, y = make_classification(n_samples=max_sample, n_features=max_feature, n_informative=max_feature, n_redundant=0,
+                               n_classes=max_feature, random_state=42, class_sep=1.25)
+
     bootstrap_feature = st.sidebar.radio(
         'Bootstrap Feature?', [True, False], index=0)
 
@@ -84,16 +87,6 @@ else:
     X, y = make_regression(n_samples=500, n_features=2,
                            n_informative=1, bias=3, noise=5, random_state=42)
     m, n = X.shape
-    # Choose base model
-    base_model = st.sidebar.selectbox(
-        'Base Model', ('SVM', 'Decision Tree', 'KNN'))
-    n_estimators = st.sidebar.number_input(
-        'Number of Estimators', value=100, step=10, min_value=1)
-    # Set max sample
-    max_sample = st.sidebar.slider('Max Sample', 0, m)
-    # set the bootstrap sample
-    bootstrap_sample = st.sidebar.radio(
-        'Bootstrap Sample?', [True, False], index=0)
 
 def create_and_train_model(base_model, X, y):
 
@@ -154,19 +147,14 @@ if st.sidebar.button('Run Algorithm'):
     bag, dec = create_and_train_model(base_model=base_model, X=X, y=y);
 
     if  statement == 'cla':
-        st.title('Bagging Classifier')
-        plot_decision_boundary(clf=bag[0], X=X, Y=y)
-        st.write(f'R-squared score: {bag[1]*100:.2f}')
-
         st.title(f'{base_model}')
-        plot_decision_boundary(clf=dec[0], X=X, Y=y)
-        st.write(f'R-squared score: {dec[1]*100:.2f}')
-
+        
     else:
-        st.title('Bagging Regressor')
-        plot_decision_boundary(clf=bag[0], X=X, Y=y)
-        st.write(f'R-squared score: {bag[1]*100:.2f}')
-
         st.title(f'{base_model}')
-        plot_decision_boundary(clf=dec[0], X=X, Y=y)
-        st.write(f'R-squared score: {dec[1]*100:.2f}')
+    
+    plot_decision_boundary(clf=bag[0], X=X, Y=y)
+    st.write(f'R-squared score: {bag[1]*100:.2f}')
+
+    st.title("Bagging of "+ f'{base_model}')
+    plot_decision_boundary(clf=dec[0], X=X, Y=y)
+    st.write(f'R-squared score: {dec[1]*100:.2f}')
