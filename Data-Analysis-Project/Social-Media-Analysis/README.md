@@ -4,6 +4,6 @@ Once the data was prepared, Exploratory Data Analysis (EDA) was performed using 
 
 The project provides an overview of the data and the findings obtained from the analysis. The visualizations and insights generated from this project can be used to understand how social media is being used and what people reacted to COVID-19. Overall, this Social Media Analysis project showcases the power of data analysis in understanding complex social media trends on COVID-19 Data.
 
-Link to raw scraped tweet: !(https://www.kaggle.com/datasets/prakashniroula/245k-tweets-of-covid-19)[https://www.kaggle.com/datasets/prakashniroula/245k-tweets-of-covid-19]
+Link to raw scraped tweet: https://www.kaggle.com/datasets/prakashniroula/245k-tweets-of-covid-19
 
-Link to Preprocessed tweet: ![https://drive.google.com/file/d/1BHxWh-yxw0oETNQaWELIx_LSQ1mHup6f/view](https://drive.google.com/file/d/1BHxWh-yxw0oETNQaWELIx_LSQ1mHup6f/view)
+Link to Preprocessed tweet: https://drive.google.com/file/d/1BHxWh-yxw0oETNQaWELIx_LSQ1mHup6f/view
